@@ -1,0 +1,51 @@
+Masterclass React 1
+() Instalação
+    (x) Node
+    (x) VSC
+    () Extensões do projeto
+        (x) Auto rename tag
+        (x) ES7+ React/Redux/React Native Snippets
+        (x) ESLint
+        (x) vscode-styled-components
+(x) Criar projeto base com create-react-app
+() Criar pastas e componentes
+    (x) Criar a pasta assets e adicionar o conteúdo do back-end em js
+    (x) Criar na pasta layout
+        (x) Header: com cabeçalho e recebendo o nome da página via props
+        (x) Main: recebe conteudo via props.children
+        (x) Footer: rodapé com copyright
+    () Criar na pasta pages: Home
+        (x) Adicionar os componentes de layout
+        (x) Criar um input de texto para adicionar o nome da pessoa
+        (x) Criar uma variável de estado para receber o conteúdo do input
+        (x) Mostrar os dados do back-end na página com o nome do país
+
+Masterclass React 2
+() Instalar dependências do projeto
+    () styled-components
+() Adicionar filtro para pesquisa de nome de país
+() Adicionar estilos na página Home:
+    () Modificar estilo do Header
+    () Modificar o estilo do conteúdo principal
+    () Modificar o estilo do Footer
+
+Masterclass React 3
+() Adicionar lógica para países visitados
+    () Criar função para alterar países visitados no componente pai (Home)
+    () Enviar função para componentes filhos via props (Countries e Country)
+    () Criar função no filho (Country) para enviar o id do país clicado para os países visitados
+() Instalar dependências do projeto
+    () react-router-dom
+() Roteamento
+    () Criar na pasta pages: Detalhes do país e Página de erro
+    () Criar roteamento no App.js
+        () Página principal: Home
+        () Página de erro: Página de erro
+        () Página de detalhes: Detalhes do país
+() Alterar conteúdo de Country
+    () Adicionar conteúdo extra quando em Detalhes do país
+() Estilização com Styled Components
+
+Masterclass React 4
+
+Masterclass React 5
