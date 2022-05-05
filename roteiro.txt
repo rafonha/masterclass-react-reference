@@ -47,5 +47,22 @@ Masterclass React 3
 () Estilização com Styled Components
 
 Masterclass React 4
+() Axios
+    () Instalar axios (npm i axios)
+    () Pegar dados dos países (REST Countries)
+    () Integrar dados da API na aplicação
+        () Mudar roteamento no App
+        () Mudar dados na página Home
+            () Adicionar variável de estado "isLoading"
+        () Mudar dados na página Countries
+        () Mudar dados na página Country
+    () Adicionar bandeira para países
+() Estilização com Styled Components
+() Tira dúvidas
 
 Masterclass React 5
+() Redux
+    () Instalar redux (npm i redux @reduxjs/toolkit)
+    () Armazenar o estado global no index.js
+    () Criar pasta features e o favoriteCountries.js
+    ()

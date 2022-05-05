@@ -1,66 +1,87 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../layout/Header'
 import Main from '../layout/Main'
 import Footer from '../layout/Footer'
-import { allCountries } from '../assets/data/countries'
 import Countries from '../components/Countries'
-import { FlexDiv } from '../assets/styles/HomeStyle'
+import { FilterDiv, FlexDiv, LabelFilter } from '../assets/styles/HomeStyle'
+import { getAPIData } from '../services/AxiosGet'
+import mapaMundi from '../assets/images/mapa-mundi.jpg'
 
 export default function Home() {
     const [countryFilter, setcountryFilter] = useState('')
+    const [isLoading, setisLoading] = useState(true)
+    const [countries, setcountries] = useState([])
     const [visitedCountries, setvisitedCountries] = useState([])
+
+    const fetchCountries = async () => {
+        const { data } = await getAPIData('all')
+        if (data) {
+            setisLoading(false)
+        }
+        setcountries(data)
+    }
+
+    useEffect(() => {
+        fetchCountries()
+    }, [])
 
     function handleFilterCountry(event) {
         let newFilteredCountries = event.target.value;
         setcountryFilter(newFilteredCountries);
     }
 
-    function toggleVisitedCountries(countryId) {
-        let newVisitedCountries = [...visitedCountries]
-        let isCountryVisited = newVisitedCountries.find(({id}) => id === countryId)
-
-        if (isCountryVisited) {
-            newVisitedCountries = newVisitedCountries.filter(({id}) => id !== countryId)
-        } else {
-            let visitedCountry = allCountries.find(({id}) => id === countryId)
-            newVisitedCountries.push(visitedCountry)
-        }
-
-        setvisitedCountries(newVisitedCountries)
-        console.log(newVisitedCountries)
-    }
-
     const countryFilterLowerCase = countryFilter.trim().toLocaleLowerCase();
 
-    const filteredCountries = allCountries.filter(({name}) => {
+    const filteredCountries = countries.filter(({name}) => {
         let nameLowerCase = name.toLocaleLowerCase();
         return nameLowerCase.includes(countryFilterLowerCase)
     })
 
+    function toggleVisitedCountries(countryName) {
+        let newVisitedCountries = [...visitedCountries]
+        let isCountryVisited = newVisitedCountries.find(({name}) => name === countryName)
+
+        if (isCountryVisited) {
+            newVisitedCountries = newVisitedCountries.filter(({name}) => name !== countryName)
+        } else {
+            let visitedCountry = countries.find(({name}) => name === countryName)
+            newVisitedCountries.push(visitedCountry)
+        }
+
+        setvisitedCountries(newVisitedCountries)
+    }
+
   return (
     <>
-        <Header pageTitle='Home' />
+        <Header pageTitle='Home' flag={mapaMundi}/>
         <Main>
-
-            <label htmlFor="inputFilterCountry">Filtrar países pelo nome: </label>
-            <input type="text" name="inputFilterCountry" id="inputFilterCountry" onChange={handleFilterCountry} />
+            <FilterDiv>
+                <LabelFilter htmlFor="inputFilterCountry">Filtrar países pelo nome: </LabelFilter>
+                <input type="text" name="inputFilterCountry" id="inputFilterCountry" onChange={handleFilterCountry} />
+            </FilterDiv>
             <FlexDiv>
-                <Countries
-                    title="Todos os países"
-                    countries={filteredCountries}
-                    quantityOfCountries={filteredCountries.length}
-                    titleOfQuantity='Quantidade de países'
-                    onCountryClick={toggleVisitedCountries}
-                    visitedCountries={visitedCountries}
-                />
-                <Countries
-                    title="Paises visitados"
-                    countries={visitedCountries}
-                    quantityOfCountries={visitedCountries.length}
-                    titleOfQuantity='Quantidade de países visitados'
-                    onCountryClick={toggleVisitedCountries}
-                    visitedCountries={visitedCountries}
-                />
+                {isLoading
+                    ? <p>Carregando países...</p>
+                    :
+                    <>
+                    <Countries
+                        title="Todos os países"
+                        countries={filteredCountries}
+                        quantityOfCountries={filteredCountries.length}
+                        titleOfQuantity='Quantidade de países'
+                        onCountryButtonClick={toggleVisitedCountries}
+                        visitedCountries={visitedCountries}
+                    />
+                    <Countries
+                        title="Paises visitados"
+                        countries={visitedCountries}
+                        quantityOfCountries={visitedCountries.length}
+                        titleOfQuantity='Quantidade de países visitados'
+                        onCountryButtonClick={toggleVisitedCountries}
+                        visitedCountries={visitedCountries}
+                    />
+                    </>
+                }
             </FlexDiv>
         </Main>
         <Footer />

@@ -3,11 +3,11 @@ import { ListLi, ListUl } from '../assets/styles/CountriesStyle'
 import Country from './Country'
 
 export default function Countries({
-    countries = 'Países',
-    title = 'Título',
-    titleOfQuantity = 'Quantidade de países',
-    quantityOfCountries = 0,
-    onCountryClick = null,
+    countries='Países',
+    title='Título',
+    titleOfQuantity='Quantidade de países',
+    quantityOfCountries=0,
+    onCountryButtonClick = null,
     visitedCountries = []
 }) {
   return (
@@ -17,11 +17,15 @@ export default function Countries({
         <ListUl>
             {countries.map(countryData => {
 
-              const isVisited = visitedCountries.find(({id}) => id === countryData.id)
+              let isCountryVisited = visitedCountries.find(({name}) => name === countryData.name)
 
-                return <ListLi key={countryData.id}>
-                  <Country country={countryData} onCountryClick={onCountryClick} isVisited={isVisited} />
-                </ListLi>
+              return <ListLi key={countryData.name}>
+                <Country
+                  country={countryData}
+                  isCountryVisited={isCountryVisited}
+                  onCountryButtonClick={onCountryButtonClick}
+                />
+              </ListLi>
             })}
         </ListUl>
     </div>

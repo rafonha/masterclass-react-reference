@@ -3,10 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { favoriteCountriesReducer } from './features/favoriteCountries';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'redux'
+
+// armazena o estado global de uma aplicação
+const store = configureStore({
+  reducer: {
+    // favoriteCountries: favoriteCountriesReducer
+  }
+})
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

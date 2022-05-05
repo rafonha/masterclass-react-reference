@@ -1,22 +1,24 @@
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { CountryLink } from '../assets/styles/CountryStyle'
 
-export default function Country({ country = [],
-  onCountryClick = [],
-  isVisited = false
+export default function Country({
+  country = [],
+  onCountryButtonClick = null,
+  isCountryVisited = false
 }) {
+
   function handleCountryClick() {
-    if (onCountryClick) {
-      onCountryClick(country.id)
+    if(onCountryButtonClick) {
+      onCountryButtonClick(country.name)
     }
   }
 
   return (
-    <div>
-        <Link to={`/country/${country.id}`}><h3>Nome do país: {country.name}</h3></Link>
-        <p>Capital: {country.capital}</p>
+    <>
+        <CountryLink to={`/country/${country.name}`}>Nome do país: {country.name}</CountryLink>
         <button onClick={handleCountryClick}>
-          {isVisited ? "Remover país visitado" : "Adicionar país visitado" }
+          {isCountryVisited ? "Remover país visitado" : "Adicionar país visitado"}
         </button>
-    </div>
+    </>
   )
 }
